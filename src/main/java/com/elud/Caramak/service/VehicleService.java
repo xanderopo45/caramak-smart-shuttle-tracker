@@ -13,15 +13,13 @@ import java.util.Map;
 public class VehicleService {
 
     @Autowired
-    private FirebaseDatabase firebaseDatabase; // Inject Realtime DB instead of Firestore
+    private FirebaseDatabase firebaseDatabase;
 
     public String updateVehicle(VehicleDTO dto) throws Exception {
 
-        // Logic to determine status based on capacity
         String status = dto.getPassengerCount() >= dto.getCapacity()
                 ? "FULL" : "AVAILABLE";
 
-        // Preparing the data map for Realtime DB
         Map<String, Object> data = new HashMap<>();
         data.put("vehicleId", dto.getVehicleId());
         data.put("location", Map.of(
@@ -33,8 +31,6 @@ public class VehicleService {
         data.put("status", status);
         data.put("timestamp", System.currentTimeMillis());
 
-        // Writing to Realtime Database
-        // Structure: /vehicles/{vehicleId}/{data}
         firebaseDatabase.getReference("vehicles")
                 .child(dto.getVehicleId())
                 .setValueAsync(data);
