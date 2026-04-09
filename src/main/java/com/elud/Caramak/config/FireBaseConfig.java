@@ -4,7 +4,7 @@ import com.elud.Caramak.CaramakApplication;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
-import com.google.firebase.database.FirebaseDatabase; // Change this import
+import com.google.firebase.database.FirebaseDatabase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -34,7 +34,6 @@ public class FireBaseConfig {
             FirebaseApp.initializeApp(options);
         }
 
-        // Return the Realtime Database instance instead of Firestore
         return FirebaseDatabase.getInstance();
     }
 }
