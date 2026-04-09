@@ -18,7 +18,7 @@ public class VehicleController {
     private VehicleService service;
 
     @Autowired
-    private FirebaseDatabase firebaseDatabase; // Inject the bean instead of getInstance()
+    private FirebaseDatabase firebaseDatabase;
 
     @PostMapping("/update")
     public String update(@RequestBody VehicleDTO dto) throws Exception {
@@ -27,7 +27,6 @@ public class VehicleController {
 
     @GetMapping
     public Map<String, Object> getVehicles() throws Exception {
-        // Use the injected firebaseDatabase bean
         DatabaseReference ref = firebaseDatabase.getReference("vehicles");
 
         CompletableFuture<Map<String, Object>> future = new CompletableFuture<>();
@@ -45,7 +44,6 @@ public class VehicleController {
                 if (value instanceof Map) {
                     future.complete((Map<String, Object>) value);
                 } else {
-                    // If it's null or not a map, return an empty map
                     future.complete(new HashMap<>());
                 }
             }
